@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Solving Mastermind using Genetic Algorithm in JavaScript">
+	<meta name="keywords" content="mastermind, game, genetic, evolving, algorithm, ai, solver">
+	<meta name="author" content="ognjenvucko@gmail.com">
+	<title>Skocko</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+
+	<div class="header">
+		Solving Mastermind using Genetic Algorithm
+	</div>
+
+	<div class="container-fluid">
+		<div class="guess-zone">
+			<div class="one-guess">
+				<table class="guess-table">
+											<tr class="guess-row-0">
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td>
+								<table class="test-table-0">
+									<tr>
+										<td class="test-col" id="tcol-0"></td>
+										<td class="test-col" id="tcol-1"></td>
+									</tr>
+									<tr>
+										<td class="test-col" id="tcol-2"></td>
+										<td class="test-col" id="tcol-3"></td>
+									</tr>									
+								</table>
+							</td>
+							<td class="loader-col">
+																	<div class="btn btn-default go-btn-0 disabled">Go</div>
+																<img id="loader-0" src="images/loader.gif">
+							</td>
+						</tr>
+											<tr class="guess-row-1">
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td>
+								<table class="test-table-1">
+									<tr>
+										<td class="test-col" id="tcol-0"></td>
+										<td class="test-col" id="tcol-1"></td>
+									</tr>
+									<tr>
+										<td class="test-col" id="tcol-2"></td>
+										<td class="test-col" id="tcol-3"></td>
+									</tr>									
+								</table>
+							</td>
+							<td class="loader-col">
+																	<div class="btn btn-default go-btn-1 disabled">Go</div>
+																<img id="loader-1" src="images/loader.gif">
+							</td>
+						</tr>
+											<tr class="guess-row-2">
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td>
+								<table class="test-table-2">
+									<tr>
+										<td class="test-col" id="tcol-0"></td>
+										<td class="test-col" id="tcol-1"></td>
+									</tr>
+									<tr>
+										<td class="test-col" id="tcol-2"></td>
+										<td class="test-col" id="tcol-3"></td>
+									</tr>									
+								</table>
+							</td>
+							<td class="loader-col">
+																	<div class="btn btn-default go-btn-2 disabled">Go</div>
+																<img id="loader-2" src="images/loader.gif">
+							</td>
+						</tr>
+											<tr class="guess-row-3">
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td>
+								<table class="test-table-3">
+									<tr>
+										<td class="test-col" id="tcol-0"></td>
+										<td class="test-col" id="tcol-1"></td>
+									</tr>
+									<tr>
+										<td class="test-col" id="tcol-2"></td>
+										<td class="test-col" id="tcol-3"></td>
+									</tr>									
+								</table>
+							</td>
+							<td class="loader-col">
+																	<div class="btn btn-default go-btn-3 disabled">Go</div>
+																<img id="loader-3" src="images/loader.gif">
+							</td>
+						</tr>
+											<tr class="guess-row-4">
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td>
+								<table class="test-table-4">
+									<tr>
+										<td class="test-col" id="tcol-0"></td>
+										<td class="test-col" id="tcol-1"></td>
+									</tr>
+									<tr>
+										<td class="test-col" id="tcol-2"></td>
+										<td class="test-col" id="tcol-3"></td>
+									</tr>									
+								</table>
+							</td>
+							<td class="loader-col">
+																	<div class="btn btn-default go-btn-4 disabled">Go</div>
+																<img id="loader-4" src="images/loader.gif">
+							</td>
+						</tr>
+											<tr class="guess-row-5">
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td class="sym-col"><span></span></td>
+							<td>
+								<table class="test-table-5">
+									<tr>
+										<td class="test-col" id="tcol-0"></td>
+										<td class="test-col" id="tcol-1"></td>
+									</tr>
+									<tr>
+										<td class="test-col" id="tcol-2"></td>
+										<td class="test-col" id="tcol-3"></td>
+									</tr>									
+								</table>
+							</td>
+							<td class="loader-col">
+																<img id="loader-5" src="images/loader.gif">
+							</td>
+						</tr>
+									</table>
+				<p>
+					<p>Mastermind Genetic Algorithm v1.2.0</p>
+					<div class="checkbox">
+						<div class="btn btn-success new-game">New Game</div>&nbsp;			
+						<label>
+							<input type="checkbox" id="ai-mode">Auto AI Mode
+						</label>
+					</div>					
+				</p>
+			</div>
+		</div>
+	</div>
+
+ 	<script src="js/jquery/jquery.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/underscore-min.js"></script>
+	<script src="js/application.js"></script>
+</body>
+</html>
