@@ -217,9 +217,9 @@ function diplayGuess(code) {
     var fn = function(){
 		rowSelector
 			.find(".sym-col:nth-child(" + (i + 1) + ")")
-			.find("span")
-			.text(code[i])
-			.fadeIn(200);
+			.addClass('sym-bg')
+			.addClass('sym-' + code[i])
+			.fadeIn(400);
         if( ++i < code.length ){
             setTimeout(fn, 280);
         }
@@ -271,9 +271,11 @@ function cleanUpPlayground() {
 		.show();
 	$(".go-btn-0")
 		.removeClass('disabled');
-	$(".sym-col span")
-		.text('')
-		.hide();
+	$(".sym-col")
+		.removeClass('sym-bg')
+		.removeClass('sym-A').removeClass('sym-B')
+		.removeClass('sym-C').removeClass('sym-D')
+		.removeClass('sym-E').removeClass('sym-F')
 	$(".test-col")
 		.removeClass('red-peg')
 		.removeClass('yellow-peg');
@@ -293,7 +295,7 @@ function playNextGuess(blackNum, whiteNum) {
  	eligibleSet = new Set();
  	var genNum = 0;
  	population.generation(previousGuesses, eligibleSet, MAXGEN, function() {
- 		var eligible = Array.from(eligibleSet);
+ 		var eligible = [...eligibleSet];
 		if(eligible.length > 0) {
 			aiGuess = chooseNextGuess(eligible);
 			diplayGuess(aiGuess);
