@@ -7,7 +7,7 @@
 	<meta name="description" content="Solving Mastermind using Genetic Algorithm in JavaScript">
 	<meta name="keywords" content="mastermind, game, genetic, evolving, algorithm, ai, solver">
 	<meta name="author" content="ognjenvucko@gmail.com">
-	<title>Skocko</title>
+	<title>Mastermind AI</title>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
