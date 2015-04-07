@@ -293,7 +293,7 @@ function playNextGuess(blackNum, whiteNum) {
  	eligibleSet = new Set();
  	var genNum = 0;
  	population.generation(previousGuesses, eligibleSet, MAXGEN, function() {
- 		var eligible = [e for (e of eligibleSet)];
+ 		var eligible = Array.from(eligibleSet);
 		if(eligible.length > 0) {
 			aiGuess = chooseNextGuess(eligible);
 			diplayGuess(aiGuess);
