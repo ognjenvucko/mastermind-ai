@@ -91,3 +91,18 @@ box-shadow: inset 0px 0px 2px 0px #444;
 	font-size: 14px;
 	font-weight: 500;
 }
+
+.sym-bg {
+	display: none;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	min-width: 50px;
+	min-height: 50px;
+}
+
+.sym-A { background-image: url('../images/symA.png'); }
+.sym-B { background-image: url('../images/symB.png'); }
+.sym-C { background-image: url('../images/symC.png'); }
+.sym-D { background-image: url('../images/symD.png') }
+.sym-E { background-image: url('../images/symE.png') }
+.sym-F { background-image: url('../images/symF.png') }
