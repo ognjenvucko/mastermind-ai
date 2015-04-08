@@ -3,13 +3,13 @@ NUM_FIELDS = 4;
 
 SYMBOLS = ["A", "B", "C", "D", "E", "F"];
 
-MUTATION_PROBABILITY	= 0.03; // 0.6
-PERMUTATION_PROBABILITY	= 0.02; // 0.4
-INVERSION_PROBABILITY	= 0.02;
+MUTATION_PROBABILITY	= 0.2; // 0.6
+PERMUTATION_PROBABILITY	= 0.1; // 0.4
+INVERSION_PROBABILITY	= 0.05;
 
-MAXGEN = 100;
+MAXGEN = 250;
 POPULATION_SIZE = 150;
-SET_SIZE = 60;
+SET_SIZE = 110;
 FIT_A = 1;
 FIT_B = 2;
 
@@ -214,6 +214,22 @@ function chooseNextGuess(eligible) {
 	return nextGuess.split('');
 }
 
+function showPegs(code) {
+    var testResponse = game.testCombination(code);
+    var testTableSelector = $(".test-table-" + previousGuesses.length);
+   	var td = 0;
+   	for(; td < testResponse[0]; td++) {
+   		testTableSelector
+   			.find("#tcol-"+td)
+   			.addClass("red-peg");
+   	}
+   	for(; td < testResponse[0] + testResponse[1]; td++) {
+   		testTableSelector
+   			.find("#tcol-"+td)
+   			.addClass("yellow-peg");
+   	}	
+}
+
 function diplayGuess(code) {
 	var rowSelector = $(".guess-row-" + previousGuesses.length);
     var i = 0;
@@ -233,32 +249,30 @@ function diplayGuess(code) {
         }
     };
     fn(function() {
-	    if(aiMode) {
-		    var testResponse = game.testCombination(code);
-		    var testTableSelector = $(".test-table-" + previousGuesses.length);
-		   	var td = 0;
-		   	for(; td < testResponse[0]; td++) {
-		   		testTableSelector
-		   			.find("#tcol-"+td)
-		   			.addClass("red-peg");
-		   	}
-		   	for(; td < testResponse[0] + testResponse[1]; td++) {
-		   		testTableSelector
-		   			.find("#tcol-"+td)
-		   			.addClass("yellow-peg");
-		   	}
+	    if(gameMode == GAME_MODE_3) {
+	    	showPegs(code);
 		}
     });
 }
 
-var game, aiGuess, population, eligibleSet, aiMode, previousGuesses;
+var game, aiGuess, population, eligibleSet;
+var gameMode, previousGuesses, playerColNum, playerCode;
+
+GAME_MODE_1 = 1;
+GAME_MODE_2 = 2;
+GAME_MODE_3 = 3;
 
 startNewGame();
 
 function startNewGame() {
 	initGameVariables();
 	cleanUpPlayground();
-	diplayGuess(aiGuess);
+	if(gameMode != GAME_MODE_1) {
+		diplayGuess(aiGuess);
+		$(".go-btn-5").hide();
+	} else {
+		$(".go-btn-5").show();
+	}
 }
 
 function initGameVariables() {
@@ -266,9 +280,10 @@ function initGameVariables() {
 	aiGuess = _.sample(allCodes);
 	population = new Population(POPULATION_SIZE);
 	eligibleSet = [];
-	aiMode = document.getElementById("ai-mode").checked;
+	gameMode = parseInt($("#mode-select").val());
+	playerColNum = 0;
+	playerCode = [];
 	previousGuesses = [];
-	// ...
 	console.log(game.solution);
 }
 
@@ -347,8 +362,38 @@ function countTestResponse() {
 }
 
 $("[class*='go-btn']").click(function() {
-	var response = countTestResponse();
-	$(this).hide();
-	$("#loader-" + previousGuesses.length).show();
-	playNextGuess(response.a, response.b);
+	if(gameMode != GAME_MODE_1) {
+		var response = countTestResponse();
+		$(this).hide();
+		$("#loader-" + previousGuesses.length).show();
+		playNextGuess(response.a, response.b);
+	} else {
+		if(playerCode.length == 4) {
+			showPegs(playerCode);
+			$(this).hide();
+			previousGuesses.push(playerCode);
+			playerCode = [];
+			playerColNum = 0;
+			$(".go-btn-" + previousGuesses.length).removeClass('disabled')
+		}
+	}
 });
+
+$("[class^='option-col']").click(function() {
+	if(gameMode == GAME_MODE_1) {
+		var symbolClass = $(this).attr('class').split(' ')[1];
+		$(".guess-row-" + previousGuesses.length)
+			.find(".sym-col:nth-child(" + (++playerColNum) + ")")
+			.removeClass('sym-bg')
+			.removeClass('sym-A').removeClass('sym-B')
+			.removeClass('sym-C').removeClass('sym-D')
+			.removeClass('sym-E').removeClass('sym-F')			
+			.addClass('sym-bg')
+			.hide()
+			.addClass(symbolClass)
+			.fadeIn(400);
+		var symbolValue = symbolClass.substr(4, 1);
+		playerCode[playerColNum - 1] = symbolValue;
+		if(playerColNum >= 4) playerColNum = 0;
+	}
+})
