@@ -104,9 +104,9 @@ box-shadow: inset 0px 0px 2px 0px #444;
 .sym-A { background-image: url('../images/symA.png'); }
 .sym-B { background-image: url('../images/symB.png'); }
 .sym-C { background-image: url('../images/symC.png'); }
-.sym-D { background-image: url('../images/symD.png') }
-.sym-E { background-image: url('../images/symE.png') }
-.sym-F { background-image: url('../images/symF.png') }
+.sym-D { background-image: url('../images/symD.png'); }
+.sym-E { background-image: url('../images/symE.png'); }
+.sym-F { background-image: url('../images/symF.png'); }
 
 .options-table {
 	border-spacing: 1px;
@@ -148,4 +148,16 @@ box-shadow: inset 0px 0px 2px 0px #444;
 .game-control-section .new-game {
 	margin-top: -5px;
 	margin-left: 5px;
+}
+
+.secret-sym {
+	background-image: url('../images/secret.png');
+}
+
+[class*="secret-block"] {
+	background-color: #A5BB96;
+	box-shadow: none;
+	border: 1px solid #888;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 }

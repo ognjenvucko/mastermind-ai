@@ -228,6 +228,10 @@ function showPegs(code) {
    			.find("#tcol-"+td)
    			.addClass("yellow-peg");
    	}	
+   	if((testResponse[0] == NUM_FIELDS) || (previousGuesses.length == 6)) {
+   		$("[class*='go-btn']").addClass('disabled');
+		displayGameSolution();
+   	}
 }
 
 function diplayGuess(code) {
@@ -302,6 +306,7 @@ function cleanUpPlayground() {
 		.removeClass('red-peg')
 		.removeClass('yellow-peg');
 	$(".loader-col img").hide();
+	clearSolutionBoxes();
 }
 
 $(".new-game").click(function() {
@@ -361,6 +366,22 @@ function countTestResponse() {
 	return {a:red, b:yellow};
 }
 
+function displayGameSolution() {
+	for(var i in game.solution) {
+		var fieldSelect = $(".secret-block-" + i);
+		fieldSelect
+			.removeClass('secret-sym')
+			.addClass('sym-' + game.solution[i]);
+	}
+}
+
+function clearSolutionBoxes() {
+	$("[class*='secret-block']").each(function() {
+		var newClass = $(this).attr('class').split(' ').slice(0,2).join(' ') + " secret-sym";
+		$(this).attr('class', newClass);
+	});
+}
+
 $("[class*='go-btn']").click(function() {
 	if(gameMode != GAME_MODE_1) {
 		var response = countTestResponse();
@@ -374,7 +395,7 @@ $("[class*='go-btn']").click(function() {
 			previousGuesses.push(playerCode);
 			playerCode = [];
 			playerColNum = 0;
-			$(".go-btn-" + previousGuesses.length).removeClass('disabled')
+			$(".go-btn-" + previousGuesses.length).removeClass('disabled');
 		}
 	}
 });
