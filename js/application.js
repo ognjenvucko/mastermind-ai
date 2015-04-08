@@ -228,7 +228,11 @@ function showPegs(code) {
    			.find("#tcol-"+td)
    			.addClass("yellow-peg");
    	}	
-   	if((testResponse[0] == NUM_FIELDS) || (previousGuesses.length == 6)) {
+   	if(
+   		(testResponse[0] == NUM_FIELDS) || 
+   		(previousGuesses.length == 6) || 
+   		(gameMode == GAME_MODE_1 && previousGuesses.length == 5)
+   	) {
    		$("[class*='go-btn']").addClass('disabled');
 		displayGameSolution();
    	}
