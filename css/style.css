@@ -90,6 +90,7 @@ box-shadow: inset 0px 0px 2px 0px #444;
 	color: #F9CB2C;
 	font-size: 14px;
 	font-weight: 500;
+	border-bottom: 3px solid #888;
 }
 
 .sym-bg {
@@ -106,3 +107,45 @@ box-shadow: inset 0px 0px 2px 0px #444;
 .sym-D { background-image: url('../images/symD.png') }
 .sym-E { background-image: url('../images/symE.png') }
 .sym-F { background-image: url('../images/symF.png') }
+
+.options-table {
+	border-spacing: 1px;
+	border-collapse: separate;
+}
+
+[class^="option-col"] {
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	width: 60px;
+	height: 60px;
+	border: 1px solid #ccc;
+	text-align: center;
+	background-color: #f7f7f7;
+	border-radius: 7px;
+	cursor: pointer;
+}
+
+[class^="option-col"]:hover {
+	background-color: #FFFBC1;
+	transition: background-color 0.5s ease;
+}
+
+[class^="option-col"]:active {
+	-webkit-box-shadow: inset 2px 2px 3px 0px rgba(0,0,0,0.26);
+	-moz-box-shadow: inset 2px 2px 3px 0px rgba(0,0,0,0.26);
+	box-shadow: inset 2px 2px 3px 0px rgba(0,0,0,0.26);
+}
+
+.game-control-section {
+	margin-top: 15px;
+}
+
+.game-control-section span {
+	margin-left: 1px;
+	font-size: 16px;
+}
+
+.game-control-section .new-game {
+	margin-top: -5px;
+	margin-left: 5px;
+}

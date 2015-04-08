@@ -50,6 +50,8 @@
 							<td class="loader-col">
 								<?php if($i < 5) : ?>
 									<div class="btn btn-default go-btn-<?= $i ?> disabled">Go</div>
+								<?php else: ?>
+									<div class="btn btn-default go-btn-<?= $i ?> disabled" style="display: none;">Go</div>
 								<?php endif; ?>
 								<img id="loader-<?= $i ?>" src="images/loader.gif">
 							</td>
@@ -57,12 +59,27 @@
 					<?php endfor; ?>
 				</table>
 				<p>
-					<p>Mastermind Genetic Algorithm v1.2.0</p>
-					<div class="checkbox">
-						<div class="btn btn-success new-game">New Game</div>&nbsp;			
+					<table class="options-table">
+						<tr>
+							<td class="option-col-A sym-A"></td>
+							<td class="option-col-B sym-B"></td>
+							<td class="option-col-C sym-C"></td>
+							<td class="option-col-D sym-D"></td>
+							<td class="option-col-E sym-E"></td>
+							<td class="option-col-F sym-F"></td>
+						</tr>
+					</table>
+					<div class="game-control-section">	
 						<label>
-							<input type="checkbox" id="ai-mode">Auto AI Mode
+							<span>Choose game mode:</span>
+							<select id="mode-select" class="form-control">
+								<option value="1">Human vs Computer</option>
+								<option value="2">AI vs Human</option>
+								<option value="3">AI vs Computer</option>
+							</select>
 						</label>
+
+						<div class="btn btn-success new-game">New Game</div>	
 					</div>					
 				</p>
 			</div>
