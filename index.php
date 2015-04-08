@@ -29,33 +29,42 @@
 		<div class="guess-zone">
 			<div class="one-guess">
 				<table class="guess-table">
-					<?php for($i=0; $i<6; $i++): ?>
-						<tr class="guess-row-<?= $i ?>">
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td>
-								<table class="test-table-<?= $i ?>">
-									<tr>
-										<td class="test-col" id="tcol-0"></td>
-										<td class="test-col" id="tcol-1"></td>
-									</tr>
-									<tr>
-										<td class="test-col" id="tcol-2"></td>
-										<td class="test-col" id="tcol-3"></td>
-									</tr>									
-								</table>
-							</td>
-							<td class="loader-col">
-								<?php if($i < 5) : ?>
-									<div class="btn btn-default go-btn-<?= $i ?> disabled">Go</div>
-								<?php else: ?>
-									<div class="btn btn-default go-btn-<?= $i ?> disabled" style="display: none;">Go</div>
-								<?php endif; ?>
-								<img id="loader-<?= $i ?>" src="images/loader.gif">
-							</td>
-						</tr>
+					<?php for($i=0; $i<7; $i++): ?>
+						<?php if($i < 6) : ?>
+							<tr class="guess-row-<?= $i ?>">
+								<td class="sym-col"><span></span></td>
+								<td class="sym-col"><span></span></td>
+								<td class="sym-col"><span></span></td>
+								<td class="sym-col"><span></span></td>
+								<td>
+									<table class="test-table-<?= $i ?>">
+										<tr>
+											<td class="test-col" id="tcol-0"></td>
+											<td class="test-col" id="tcol-1"></td>
+										</tr>
+										<tr>
+											<td class="test-col" id="tcol-2"></td>
+											<td class="test-col" id="tcol-3"></td>
+										</tr>									
+									</table>
+								</td>
+								<td class="loader-col">
+									<?php if($i < 5) : ?>
+										<div class="btn btn-default go-btn-<?= $i ?> disabled">Go</div>
+									<?php else: ?>
+										<div class="btn btn-default go-btn-<?= $i ?> disabled" style="display: none;">Go</div>
+									<?php endif; ?>
+									<img id="loader-<?= $i ?>" src="images/loader.gif">
+								</td>
+							</tr>
+						<?php else: ?>
+							<tr>
+								<td class="sym-col secret-block-0 secret-sym"></td>
+								<td class="sym-col secret-block-1 secret-sym"></td>
+								<td class="sym-col secret-block-2 secret-sym"></td>
+								<td class="sym-col secret-block-3 secret-sym"></td>
+							</tr>
+						<?php endif; ?>
 					<?php endfor; ?>
 				</table>
 				<p>
