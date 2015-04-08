@@ -153,8 +153,8 @@ Population.prototype.sort = function() {
 }
 
 Population.prototype.generation = function(prevGuesses, eiSet, maxGen, callback) {
-	if(maxGen <= 0 || eiSet.size == SET_SIZE) {
-		if(!(prevGuesses.length > 1 && eiSet.size < 1)) {
+	if(maxGen <= 0 || eiSet.length == SET_SIZE) {
+		if(!(prevGuesses.length > 1 && eiSet.length < 1)) {
 			callback();
 			return;
 		}
@@ -162,7 +162,10 @@ Population.prototype.generation = function(prevGuesses, eiSet, maxGen, callback)
 	for(var i in this.members) {
 		this.members[i].calculateFitness(prevGuesses);
 		if(this.members[i].eligible) {
-			eiSet.add(this.members[i].getCodeString());
+			var codeString = this.members[i].getCodeString();
+			if(eiSet.indexOf(codeString) === -1) {
+				eiSet.push(this.members[i].getCodeString());
+			}
 		}
 	}
 	this.sort();
@@ -214,19 +217,23 @@ function chooseNextGuess(eligible) {
 function diplayGuess(code) {
 	var rowSelector = $(".guess-row-" + previousGuesses.length);
     var i = 0;
-    var fn = function(){
+    var fn = function(callback) {
 		rowSelector
 			.find(".sym-col:nth-child(" + (i + 1) + ")")
 			.addClass('sym-bg')
+			.hide()
 			.addClass('sym-' + code[i])
 			.fadeIn(400);
         if( ++i < code.length ){
-            setTimeout(fn, 280);
+            setTimeout(function() {
+            	fn(callback)
+            }, 280);
+        } else {
+        	callback();
         }
     };
-    fn();
-    if(aiMode) {
-	    setTimeout(function() {
+    fn(function() {
+	    if(aiMode) {
 		    var testResponse = game.testCombination(code);
 		    var testTableSelector = $(".test-table-" + previousGuesses.length);
 		   	var td = 0;
@@ -240,8 +247,8 @@ function diplayGuess(code) {
 		   			.find("#tcol-"+td)
 		   			.addClass("yellow-peg");
 		   	}
-		}, 1400);
-	}
+		}
+    });
 }
 
 var game, aiGuess, population, eligibleSet, aiMode, previousGuesses;
@@ -258,7 +265,7 @@ function initGameVariables() {
 	game = new Mastermind();
 	aiGuess = _.sample(allCodes);
 	population = new Population(POPULATION_SIZE);
-	eligibleSet = new Set();
+	eligibleSet = [];
 	aiMode = document.getElementById("ai-mode").checked;
 	previousGuesses = [];
 	// ...
@@ -279,6 +286,7 @@ function cleanUpPlayground() {
 	$(".test-col")
 		.removeClass('red-peg')
 		.removeClass('yellow-peg');
+	$(".loader-col img").hide();
 }
 
 $(".new-game").click(function() {
@@ -292,12 +300,11 @@ function playNextGuess(blackNum, whiteNum) {
 		alert("Win!"); 
 		return; 
 	}
- 	eligibleSet = new Set();
+ 	eligibleSet = [];
  	var genNum = 0;
  	population.generation(previousGuesses, eligibleSet, MAXGEN, function() {
- 		var eligible = [...eligibleSet];
-		if(eligible.length > 0) {
-			aiGuess = chooseNextGuess(eligible);
+		if(eligibleSet.length > 0) {
+			aiGuess = chooseNextGuess(eligibleSet);
 			diplayGuess(aiGuess);
 			$("#loader-" + (previousGuesses.length-1)).hide();
 			$(".go-btn-" + previousGuesses.length).removeClass("disabled");
