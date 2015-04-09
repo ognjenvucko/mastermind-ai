@@ -7,7 +7,7 @@
 	<meta name="description" content="Solving Mastermind using Genetic Algorithm in JavaScript">
 	<meta name="keywords" content="mastermind, game, genetic, evolving, algorithm, ai, solver">
 	<meta name="author" content="ognjenvucko@gmail.com">
-	<title>Skocko</title>
+	<title>Mastermind AI</title>
 
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/bootstrap-theme.min.css" rel="stylesheet">
@@ -21,6 +21,17 @@
 </head>
 <body>
 
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-61732641-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
 	<div class="header">
 		Solving Mastermind using Genetic Algorithm
 	</div>
@@ -29,150 +40,176 @@
 		<div class="guess-zone">
 			<div class="one-guess">
 				<table class="guess-table">
-											<tr class="guess-row-0">
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td>
-								<table class="test-table-0">
-									<tr>
-										<td class="test-col" id="tcol-0"></td>
-										<td class="test-col" id="tcol-1"></td>
-									</tr>
-									<tr>
-										<td class="test-col" id="tcol-2"></td>
-										<td class="test-col" id="tcol-3"></td>
-									</tr>									
-								</table>
-							</td>
-							<td class="loader-col">
-																	<div class="btn btn-default go-btn-0 disabled">Go</div>
-																<img id="loader-0" src="images/loader.gif">
-							</td>
-						</tr>
-											<tr class="guess-row-1">
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td>
-								<table class="test-table-1">
-									<tr>
-										<td class="test-col" id="tcol-0"></td>
-										<td class="test-col" id="tcol-1"></td>
-									</tr>
-									<tr>
-										<td class="test-col" id="tcol-2"></td>
-										<td class="test-col" id="tcol-3"></td>
-									</tr>									
-								</table>
-							</td>
-							<td class="loader-col">
-																	<div class="btn btn-default go-btn-1 disabled">Go</div>
-																<img id="loader-1" src="images/loader.gif">
-							</td>
-						</tr>
-											<tr class="guess-row-2">
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td>
-								<table class="test-table-2">
-									<tr>
-										<td class="test-col" id="tcol-0"></td>
-										<td class="test-col" id="tcol-1"></td>
-									</tr>
-									<tr>
-										<td class="test-col" id="tcol-2"></td>
-										<td class="test-col" id="tcol-3"></td>
-									</tr>									
-								</table>
-							</td>
-							<td class="loader-col">
-																	<div class="btn btn-default go-btn-2 disabled">Go</div>
-																<img id="loader-2" src="images/loader.gif">
-							</td>
-						</tr>
-											<tr class="guess-row-3">
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td>
-								<table class="test-table-3">
-									<tr>
-										<td class="test-col" id="tcol-0"></td>
-										<td class="test-col" id="tcol-1"></td>
-									</tr>
-									<tr>
-										<td class="test-col" id="tcol-2"></td>
-										<td class="test-col" id="tcol-3"></td>
-									</tr>									
-								</table>
-							</td>
-							<td class="loader-col">
-																	<div class="btn btn-default go-btn-3 disabled">Go</div>
-																<img id="loader-3" src="images/loader.gif">
-							</td>
-						</tr>
-											<tr class="guess-row-4">
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td>
-								<table class="test-table-4">
-									<tr>
-										<td class="test-col" id="tcol-0"></td>
-										<td class="test-col" id="tcol-1"></td>
-									</tr>
-									<tr>
-										<td class="test-col" id="tcol-2"></td>
-										<td class="test-col" id="tcol-3"></td>
-									</tr>									
-								</table>
-							</td>
-							<td class="loader-col">
-																	<div class="btn btn-default go-btn-4 disabled">Go</div>
-																<img id="loader-4" src="images/loader.gif">
-							</td>
-						</tr>
-											<tr class="guess-row-5">
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td class="sym-col"><span></span></td>
-							<td>
-								<table class="test-table-5">
-									<tr>
-										<td class="test-col" id="tcol-0"></td>
-										<td class="test-col" id="tcol-1"></td>
-									</tr>
-									<tr>
-										<td class="test-col" id="tcol-2"></td>
-										<td class="test-col" id="tcol-3"></td>
-									</tr>									
-								</table>
-							</td>
-							<td class="loader-col">
-																<img id="loader-5" src="images/loader.gif">
-							</td>
-						</tr>
+																		<tr class="guess-row-0">
+								<td class="sym-col block-0"><span></span></td>
+								<td class="sym-col block-1"><span></span></td>
+								<td class="sym-col block-2"><span></span></td>
+								<td class="sym-col block-3"><span></span></td>
+								<td>
+									<table class="test-table-0">
+										<tr>
+											<td class="test-col" id="tcol-0"></td>
+											<td class="test-col" id="tcol-1"></td>
+										</tr>
+										<tr>
+											<td class="test-col" id="tcol-2"></td>
+											<td class="test-col" id="tcol-3"></td>
+										</tr>									
 									</table>
+								</td>
+								<td class="loader-col">
+																			<div class="btn btn-default go-btn-0 disabled">Go</div>
+																		<img id="loader-0" src="images/loader.gif">
+								</td>
+							</tr>
+																								<tr class="guess-row-1">
+								<td class="sym-col block-0"><span></span></td>
+								<td class="sym-col block-1"><span></span></td>
+								<td class="sym-col block-2"><span></span></td>
+								<td class="sym-col block-3"><span></span></td>
+								<td>
+									<table class="test-table-1">
+										<tr>
+											<td class="test-col" id="tcol-0"></td>
+											<td class="test-col" id="tcol-1"></td>
+										</tr>
+										<tr>
+											<td class="test-col" id="tcol-2"></td>
+											<td class="test-col" id="tcol-3"></td>
+										</tr>									
+									</table>
+								</td>
+								<td class="loader-col">
+																			<div class="btn btn-default go-btn-1 disabled">Go</div>
+																		<img id="loader-1" src="images/loader.gif">
+								</td>
+							</tr>
+																								<tr class="guess-row-2">
+								<td class="sym-col block-0"><span></span></td>
+								<td class="sym-col block-1"><span></span></td>
+								<td class="sym-col block-2"><span></span></td>
+								<td class="sym-col block-3"><span></span></td>
+								<td>
+									<table class="test-table-2">
+										<tr>
+											<td class="test-col" id="tcol-0"></td>
+											<td class="test-col" id="tcol-1"></td>
+										</tr>
+										<tr>
+											<td class="test-col" id="tcol-2"></td>
+											<td class="test-col" id="tcol-3"></td>
+										</tr>									
+									</table>
+								</td>
+								<td class="loader-col">
+																			<div class="btn btn-default go-btn-2 disabled">Go</div>
+																		<img id="loader-2" src="images/loader.gif">
+								</td>
+							</tr>
+																								<tr class="guess-row-3">
+								<td class="sym-col block-0"><span></span></td>
+								<td class="sym-col block-1"><span></span></td>
+								<td class="sym-col block-2"><span></span></td>
+								<td class="sym-col block-3"><span></span></td>
+								<td>
+									<table class="test-table-3">
+										<tr>
+											<td class="test-col" id="tcol-0"></td>
+											<td class="test-col" id="tcol-1"></td>
+										</tr>
+										<tr>
+											<td class="test-col" id="tcol-2"></td>
+											<td class="test-col" id="tcol-3"></td>
+										</tr>									
+									</table>
+								</td>
+								<td class="loader-col">
+																			<div class="btn btn-default go-btn-3 disabled">Go</div>
+																		<img id="loader-3" src="images/loader.gif">
+								</td>
+							</tr>
+																								<tr class="guess-row-4">
+								<td class="sym-col block-0"><span></span></td>
+								<td class="sym-col block-1"><span></span></td>
+								<td class="sym-col block-2"><span></span></td>
+								<td class="sym-col block-3"><span></span></td>
+								<td>
+									<table class="test-table-4">
+										<tr>
+											<td class="test-col" id="tcol-0"></td>
+											<td class="test-col" id="tcol-1"></td>
+										</tr>
+										<tr>
+											<td class="test-col" id="tcol-2"></td>
+											<td class="test-col" id="tcol-3"></td>
+										</tr>									
+									</table>
+								</td>
+								<td class="loader-col">
+																			<div class="btn btn-default go-btn-4 disabled">Go</div>
+																		<img id="loader-4" src="images/loader.gif">
+								</td>
+							</tr>
+																								<tr class="guess-row-5">
+								<td class="sym-col block-0"><span></span></td>
+								<td class="sym-col block-1"><span></span></td>
+								<td class="sym-col block-2"><span></span></td>
+								<td class="sym-col block-3"><span></span></td>
+								<td>
+									<table class="test-table-5">
+										<tr>
+											<td class="test-col" id="tcol-0"></td>
+											<td class="test-col" id="tcol-1"></td>
+										</tr>
+										<tr>
+											<td class="test-col" id="tcol-2"></td>
+											<td class="test-col" id="tcol-3"></td>
+										</tr>									
+									</table>
+								</td>
+								<td class="loader-col">
+																			<div class="btn btn-default go-btn-5 disabled" style="display: none;">Go</div>
+																		<img id="loader-5" src="images/loader.gif">
+								</td>
+							</tr>
+																								<tr>
+								<td class="sym-col secret-block-0 secret-sym"></td>
+								<td class="sym-col secret-block-1 secret-sym"></td>
+								<td class="sym-col secret-block-2 secret-sym"></td>
+								<td class="sym-col secret-block-3 secret-sym"></td>
+							</tr>
+															</table>
 				<p>
-					<p>Mastermind Genetic Algorithm v1.2.0</p>
-					<div class="checkbox">
-						<div class="btn btn-success new-game">New Game</div>&nbsp;			
+					<table class="options-table">
+						<tr>
+							<td class="option-col-A sym-A"></td>
+							<td class="option-col-B sym-B"></td>
+							<td class="option-col-C sym-C"></td>
+							<td class="option-col-D sym-D"></td>
+							<td class="option-col-E sym-E"></td>
+							<td class="option-col-F sym-F"></td>
+						</tr>
+					</table>
+					<div class="game-control-section">	
 						<label>
-							<input type="checkbox" id="ai-mode">Auto AI Mode
+							<span>Choose game mode:</span>
+							<select id="mode-select" class="form-control">
+								<option value="1">Human vs Computer</option>
+								<option value="2">AI vs Human</option>
+								<option value="3">AI vs Computer</option>
+							</select>
 						</label>
+
+						<div class="btn btn-success new-game">New Game</div>	
 					</div>					
 				</p>
 			</div>
 		</div>
 	</div>
+
+	<a href="https://github.com/ognjenvucko/mastermind-ai" target="_blank">
+		<img class="ribbon" alt="Fork me on GitHub" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png">
+	</a>
 
  	<script src="js/jquery/jquery.min.js"></script>
 	<script src="js/bootstrap/bootstrap.min.js"></script>

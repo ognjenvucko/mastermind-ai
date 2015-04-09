@@ -38,6 +38,7 @@ body {
 [class^="test-table"] {
 	border-spacing: 3px;
 	border-collapse: separate;
+	min-width: 60px;
 }
 
 .test-col {
@@ -160,4 +161,12 @@ box-shadow: inset 0px 0px 2px 0px #444;
 	border: 1px solid #888;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
+}
+
+.ribbon {
+	position: absolute; 
+	top: 0; 
+	right: 0; 
+	border: 0; 
+	z-index: 999;
 }

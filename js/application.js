@@ -235,7 +235,9 @@ function showPegs(code) {
    	) {
    		$("[class*='go-btn']").addClass('disabled');
 		displayGameSolution();
+		return true;
    	}
+   	return false;
 }
 
 function diplayGuess(code) {
@@ -247,7 +249,7 @@ function diplayGuess(code) {
 			.addClass('sym-bg')
 			.hide()
 			.addClass('sym-' + code[i])
-			.fadeIn(400);
+			.fadeIn(280);
         if( ++i < code.length ){
             setTimeout(function() {
             	fn(callback)
@@ -264,7 +266,7 @@ function diplayGuess(code) {
 }
 
 var game, aiGuess, population, eligibleSet;
-var gameMode, previousGuesses, playerColNum, playerCode;
+var gameMode, previousGuesses, playerCode;
 
 GAME_MODE_1 = 1;
 GAME_MODE_2 = 2;
@@ -289,10 +291,17 @@ function initGameVariables() {
 	population = new Population(POPULATION_SIZE);
 	eligibleSet = [];
 	gameMode = parseInt($("#mode-select").val());
-	playerColNum = 0;
-	playerCode = [];
+	playerCode = [0,0,0,0];
 	previousGuesses = [];
 	console.log(game.solution);
+}
+
+function getNumberFromClass(classAttr, prefix) {
+	var startIndex = classAttr.indexOf(prefix);
+	if(startIndex != -1) {
+		return parseInt(classAttr.charAt(startIndex + prefix.length));
+	}
+	return NaN;
 }
 
 function cleanUpPlayground() {
@@ -301,11 +310,13 @@ function cleanUpPlayground() {
 		.show();
 	$(".go-btn-0")
 		.removeClass('disabled');
-	$(".sym-col")
-		.removeClass('sym-bg')
-		.removeClass('sym-A').removeClass('sym-B')
-		.removeClass('sym-C').removeClass('sym-D')
-		.removeClass('sym-E').removeClass('sym-F')
+	$(".sym-col").each(function() {
+		if(!$(this).is("[class*='secret-block']")) {
+			var prefix = "block-";
+			var blockNumber = getNumberFromClass($(this).attr('class'), prefix);
+			$(this).attr("class", "sym-col " + prefix + blockNumber);
+		}
+	});
 	$(".test-col")
 		.removeClass('red-peg')
 		.removeClass('yellow-peg');
@@ -340,19 +351,21 @@ function playNextGuess(blackNum, whiteNum) {
 }
 
 $(".test-col").click(function() {
-	if($(this).hasClass("red-peg")) {
+	if(gameMode == GAME_MODE_2) {
+		if($(this).hasClass("red-peg")) {
 
-		$(this).removeClass("red-peg");
+			$(this).removeClass("red-peg");
 
-	} else if($(this).hasClass("yellow-peg")) {
+		} else if($(this).hasClass("yellow-peg")) {
 
-		$(this).removeClass("yellow-peg");
-		$(this).addClass("red-peg");
+			$(this).removeClass("yellow-peg");
+			$(this).addClass("red-peg");
 
-	} else {
+		} else {
 
-		$(this).addClass("yellow-peg");
+			$(this).addClass("yellow-peg");
 
+		}
 	}
 });
 
@@ -393,13 +406,14 @@ $("[class*='go-btn']").click(function() {
 		$("#loader-" + previousGuesses.length).show();
 		playNextGuess(response.a, response.b);
 	} else {
-		if(playerCode.length == 4) {
-			showPegs(playerCode);
+		if(playerCode.indexOf(0) == -1) {
+			var over = showPegs(playerCode);
 			$(this).hide();
 			previousGuesses.push(playerCode);
-			playerCode = [];
-			playerColNum = 0;
-			$(".go-btn-" + previousGuesses.length).removeClass('disabled');
+			playerCode = [0,0,0,0];
+			if(!over) {
+				$(".go-btn-" + previousGuesses.length).removeClass('disabled');
+			}
 		}
 	}
 });
@@ -407,18 +421,24 @@ $("[class*='go-btn']").click(function() {
 $("[class^='option-col']").click(function() {
 	if(gameMode == GAME_MODE_1) {
 		var symbolClass = $(this).attr('class').split(' ')[1];
-		$(".guess-row-" + previousGuesses.length)
-			.find(".sym-col:nth-child(" + (++playerColNum) + ")")
-			.removeClass('sym-bg')
-			.removeClass('sym-A').removeClass('sym-B')
-			.removeClass('sym-C').removeClass('sym-D')
-			.removeClass('sym-E').removeClass('sym-F')			
-			.addClass('sym-bg')
-			.hide()
-			.addClass(symbolClass)
-			.fadeIn(400);
-		var symbolValue = symbolClass.substr(4, 1);
-		playerCode[playerColNum - 1] = symbolValue;
-		if(playerColNum >= 4) playerColNum = 0;
+		var firstPosition = playerCode.indexOf(0);
+		if(firstPosition != -1) {
+			$(".guess-row-" + previousGuesses.length)
+				.find(".sym-col:nth-child(" + (firstPosition+1) + ")")
+				.addClass('sym-bg')
+				.hide()
+				.addClass(symbolClass)
+				.fadeIn(200);
+				var symbolValue = symbolClass.substr(4, 1);
+				playerCode[firstPosition] = symbolValue;
+		}
 	}
-})
+});
+
+$(".sym-col").click(function() {
+	if(gameMode == GAME_MODE_1) {
+		var blockNumber = getNumberFromClass($(this).attr("class"), "block-");
+		playerCode[blockNumber] = 0;
+		$(this).attr("class", "sym-col block-" + blockNumber);
+	}
+});
