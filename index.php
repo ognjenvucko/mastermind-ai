@@ -32,6 +32,15 @@
 
 	</script>
 
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>	
+
 	<div class="header">
 		Solving Mastermind using Genetic Algorithm
 	</div>
@@ -99,14 +108,17 @@
 							</select>
 						</label>
 
-						<div class="btn btn-success new-game">New Game</div>	
+						<div class="btn btn-success new-game">New Game</div><br><br>
+						<div>
+							<div class="fb-like" data-href="http://ognjenvucko.github.io/mastermind-ai/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+						</div>
 					</div>					
 				</p>
 			</div>
 		</div>
 	</div>
 
-	<a href="https://github.com/ognjenvucko/mastermind-ai" target="_blank">
+	<a class="hidden-xs" href="https://github.com/ognjenvucko/mastermind-ai" target="_blank">
 		<img class="ribbon" alt="Fork me on GitHub" src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png">
 	</a>
 
