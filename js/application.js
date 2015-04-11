@@ -326,6 +326,7 @@ function cleanUpPlayground() {
 
 $(".new-game").click(function() {
 	startNewGame();
+	ga('send', 'event', 'Buttons', 'newGame');
 });
 
 function playNextGuess(blackNum, whiteNum) {
@@ -416,6 +417,7 @@ $("[class*='go-btn']").click(function() {
 			}
 		}
 	}
+	ga('send', 'event', 'Buttons', 'Go');
 });
 
 $("[class^='option-col']").click(function() {
