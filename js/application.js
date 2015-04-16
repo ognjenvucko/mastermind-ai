@@ -268,9 +268,9 @@ function diplayGuess(code) {
 var game, aiGuess, population, eligibleSet;
 var gameMode, previousGuesses, playerCode;
 
-GAME_MODE_1 = 1;
+GAME_MODE_1 = 3;
 GAME_MODE_2 = 2;
-GAME_MODE_3 = 3;
+GAME_MODE_3 = 1;
 
 startNewGame();
 
@@ -368,6 +368,7 @@ $(".test-col").click(function() {
 
 		}
 	}
+	ga('send', 'event', 'Pegs', 'Set');
 });
 
 function countTestResponse() {
@@ -435,10 +436,11 @@ $("[class^='option-col']").click(function() {
 				playerCode[firstPosition] = symbolValue;
 		}
 	}
+	ga('send', 'event', 'Options', 'Choose');
 });
 
 $(".sym-col").click(function() {
-	if(gameMode == GAME_MODE_1) {
+	if(gameMode == GAME_MODE_1 && false == $(this).hasClass('secret-sym')) {
 		var blockNumber = getNumberFromClass($(this).attr("class"), "block-");
 		playerCode[blockNumber] = 0;
 		$(this).attr("class", "sym-col block-" + blockNumber);
